@@ -1,17 +1,21 @@
+let firstName = localStorage.getItem("personProfile")
+  ? JSON.parse("personPorfile").firstName
+  : "";
+let lastName = localStorage.getItem("personProfile")
+  ? JSON.parse("personProfile").lastName
+  : "";
 export const initialState = {
-  firstName: "",
-  lastName: "",
+  firstName: "" || firstName,
+  lastName: "" || lastName,
 };
 
-export const UserProfileReducer = (initialState, action) => {
-  switch (action.type) {
-    case "Click_Success":
-      return {
-        ...initialState,
-        firstName: action.data.firstName,
-        lastName: action.data.lastName,
-      };
-    default:
-      break;
+export const UserProfileReducer = (action, initialState) => {
+  if (action.type === "Click_Success") {
+    return {
+      ...initialState,
+      ...action.data,
+    };
+  } else {
+    throw new Error(`Unhandled action type: ${action.type}`);
   }
 };
