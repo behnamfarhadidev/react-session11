@@ -4,20 +4,22 @@ const UserProfileStateContext = createContext();
 const UserProfileDispatchContext = createContext();
 
 export function useProfileState() {
-  return useContext(UserProfileStateContext);
+  const context = useContext(UserProfileStateContext);
+  return context;
 }
 
 export function useProfileDispatch() {
-  return useContext(UserProfileDispatchContext);
+  const context = useContext(UserProfileDispatchContext);
+  return context;
 }
 
 export const UserProfileProvider = ({ children }) => {
   const [user, dispatch] = useReducer(UserProfileReducer, initialState);
   return (
     <UserProfileStateContext.Provider value={user}>
-      <UserProfileDispatchContext value={dispatch}>
+      <UserProfileDispatchContext.Provider value={dispatch}>
         {children}
-      </UserProfileDispatchContext>
+      </UserProfileDispatchContext.Provider>
     </UserProfileStateContext.Provider>
   );
 };
